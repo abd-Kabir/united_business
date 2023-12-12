@@ -1,0 +1,9 @@
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/.gitignore
+/.idea/discord.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/ub.iml
+/.idea/vcs.xml
+/.env
+/db.sqlite3
