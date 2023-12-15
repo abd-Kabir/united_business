@@ -96,6 +96,22 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'authentication.User'
 
+# RestFramework
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'config.utils.api_exceptions.uni_exception_handler',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    # 'rest_framework.permissions.IsAuthenticated',
+    # ],
+    # 'DEFAULT_FILTER_BACKENDS': [
+    #     'django_filters.rest_framework.DjangoFilterBackend',
+    # ],
+    'DEFAULT_PAGINATION_CLASS': 'config.pagination.APIPagination',
+    'PAGE_SIZE': 20,
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 

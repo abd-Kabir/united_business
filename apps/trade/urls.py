@@ -1,6 +1,7 @@
 from django.urls import path
 
+from apps.trade.views import TradeDataAPIView
 
 urlpatterns = [
-    # path('token/', JWTObtainPairView.as_view(), name='token_obtain_pair'),
+    path('', TradeDataAPIView.as_view(), name='trade'),
 ]

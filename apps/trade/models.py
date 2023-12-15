@@ -20,3 +20,6 @@ class Trade(BaseModel):
 
     class Meta:
         db_table = 'Trade'
+        indexes = [
+            models.Index(fields=['mode',]),
+        ]
