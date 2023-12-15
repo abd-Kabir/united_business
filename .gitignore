@@ -7,3 +7,4 @@
 /.idea/vcs.xml
 /.env
 /db.sqlite3
+/.idea/dataSources.xml

@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
     # apps
     'apps.authentication',
+    'apps.trade',
 ]
 
 MIDDLEWARE = [
