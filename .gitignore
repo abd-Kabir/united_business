@@ -8,3 +8,4 @@
 /.env
 /db.sqlite3
 /.idea/dataSources.xml
+/logs.log
