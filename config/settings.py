@@ -21,6 +21,9 @@ DEBUG = bool(int(getenv('DEBUG')))
 
 ALLOWED_HOSTS = ['*']
 
+# CORS
+CORS_ALLOW_ALL_ORIGINS = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,8 +56,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-CSRF_COOKIE_SECURE = True
 
 ROOT_URLCONF = 'config.urls'
 
