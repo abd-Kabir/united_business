@@ -37,11 +37,12 @@ class SignUpVerifyCodeAPIView(APIView):
 
         verify_obj = VerifyCode.objects.filter(code=code)
         if verify_obj:
-            verify_obj = verify_obj.first()
+            verify_obj: VerifyCode = verify_obj.first()
 
             user = verify_obj.user
             if user == email_user:
-                verify_obj.delete()
+                verify_obj.is_verified = True
+                verify_obj.save()
                 return Response({
                     'detail': 'Successfully verified',
                     'status': status.HTTP_200_OK

@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, status
 from rest_framework.generics import get_object_or_404
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -33,6 +33,7 @@ class SignUpSerializer(serializers.Serializer):
             user = User.objects.create(first_name=first_name,
                                        last_name=last_name,
                                        email=email,
+                                       username=None,
                                        is_active=False)
             send_verification_token(user=user, template_name='verification.html', subject='Verification Code')
             return user
@@ -44,14 +45,18 @@ class SignUpAuthSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
     email = serializers.EmailField()
+    code = serializers.CharField()
 
     def create(self, validated_data):
         try:
+            code = validated_data.get('code')
             email = validated_data.get('email')
             password = validated_data.get('password')
             username = validated_data.get('username')
 
             user = get_object_or_404(User, email=email)
+            if not user.verifycode.filter(code=code):
+                raise APIValidation("Bad request", status_code=status.HTTP_400_BAD_REQUEST)
             user.username = username
             user.is_active = True
             user.set_password(password)
