@@ -24,8 +24,14 @@ ALLOWED_HOSTS = ['*']
 # CORS
 CORS_ALLOW_ALL_ORIGINS = True
 
-# Application definition
+# CSRF TRUSTS
+CSRF_TRUSTED_ORIGINS = [
+    'https://unitedbusiness.abd-kabir.repl.co/',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
