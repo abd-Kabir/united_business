@@ -32,7 +32,8 @@ class SignUpSerializer(serializers.Serializer):
 
             user = User.objects.create(first_name=first_name,
                                        last_name=last_name,
-                                       email=email)
+                                       email=email,
+                                       is_active=False)
             send_verification_token(user=user, template_name='verification.html', subject='Verification Code')
             return user
         except Exception as exc:
@@ -40,6 +41,10 @@ class SignUpSerializer(serializers.Serializer):
 
 
 class SignUpAuthSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+    email = serializers.EmailField()
+
     def create(self, validated_data):
         try:
             email = validated_data.get('email')
@@ -48,6 +53,7 @@ class SignUpAuthSerializer(serializers.Serializer):
 
             user = get_object_or_404(User, email=email)
             user.username = username
+            user.is_active = True
             user.set_password(password)
             user.save()
             return user
