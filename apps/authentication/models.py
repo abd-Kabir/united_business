@@ -41,7 +41,7 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         user = User.objects.filter(email=self.email, is_active=True)
-        if user:
+        if user and (not self.pk):
             raise APIValidation("This email is already registered")
 
         super().save(*args, **kwargs)
