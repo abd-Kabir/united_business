@@ -7,10 +7,14 @@ from apps.administration.models import AboutUs, Direction, Partner
 class AboutUsSerializer(serializers.ModelSerializer):
     class Meta:
         model = AboutUs
-        fields = ['title',
-                  'description',
-                  'link',
-                  'photo', ]
+        fields = [
+            'title',
+            'description',
+            'title_secondary',
+            'description_secondary',
+            'link',
+            'photo',
+        ]
 
 
 # Direction
@@ -19,6 +23,8 @@ class DirectionSerializer(serializers.ModelSerializer):
         model = Direction
         fields = ['title',
                   'description',
+                  'title_secondary',
+                  'description_secondary',
                   'link',
                   'photo', ]
 
@@ -29,5 +35,6 @@ class PartnerSerializer(serializers.ModelSerializer):
         model = Partner
         fields = ['title',
                   'description',
-                  'photo_1',
-                  'photo_2', ]
+                  'link',
+                  'logo',
+                  'photo', ]

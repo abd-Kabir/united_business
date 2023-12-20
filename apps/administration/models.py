@@ -6,8 +6,10 @@ from config.models import BaseModel
 
 class AboutUs(BaseModel):
     title = models.CharField(max_length=255)
-    description = models.TextField(null=True)
-    link = models.TextField(null=True)
+    description = models.TextField()
+    title_secondary = models.CharField(max_length=255, null=True, blank=True)
+    description_secondary = models.TextField(null=True, blank=True)
+    link = models.TextField(null=True, blank=True)
     photo = models.FileField(upload_to=hash_filename)
 
     class Meta:
@@ -16,8 +18,10 @@ class AboutUs(BaseModel):
 
 class Direction(BaseModel):
     title = models.CharField(max_length=255)
-    description = models.TextField(null=True)
-    link = models.TextField(null=True)
+    description = models.TextField()
+    title_secondary = models.CharField(max_length=255, null=True, blank=True)
+    description_secondary = models.TextField(null=True, blank=True)
+    link = models.TextField(null=True, blank=True)
     photo = models.FileField(upload_to=hash_filename)
 
     class Meta:
@@ -27,8 +31,9 @@ class Direction(BaseModel):
 class Partner(BaseModel):
     title = models.CharField(max_length=255)
     description = models.TextField(null=True)
-    photo_1 = models.FileField(upload_to=hash_filename)
-    photo_2 = models.FileField(upload_to=hash_filename)
+    link = models.TextField(null=True, blank=True)
+    logo = models.FileField(upload_to=hash_filename)
+    photo = models.FileField(upload_to=hash_filename)
 
     class Meta:
         db_table = 'Partner'
