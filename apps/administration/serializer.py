@@ -1,12 +1,26 @@
 from rest_framework import serializers
 
-from apps.administration.models import AboutUs, Direction, Partner
+from apps.administration.models import AboutUs, Direction, Partner, Service
 
 
 # AboutUs
 class AboutUsSerializer(serializers.ModelSerializer):
     class Meta:
         model = AboutUs
+        fields = [
+            'title',
+            'description',
+            'title_secondary',
+            'description_secondary',
+            'link',
+            'photo',
+        ]
+
+
+# Service
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Service
         fields = [
             'title',
             'description',

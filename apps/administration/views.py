@@ -1,13 +1,19 @@
 from rest_framework.parsers import MultiPartParser
 from rest_framework.viewsets import ModelViewSet
 
-from apps.administration.models import AboutUs, Direction, Partner
-from apps.administration.serializer import AboutUsSerializer, DirectionSerializer, PartnerSerializer
+from apps.administration.models import AboutUs, Direction, Partner, Service
+from apps.administration.serializer import AboutUsSerializer, DirectionSerializer, PartnerSerializer, ServiceSerializer
 
 
 class AboutUsModelViewSet(ModelViewSet):
     queryset = AboutUs.objects.all()
     serializer_class = AboutUsSerializer
+    parser_classes = (MultiPartParser,)
+
+
+class ServiceModelViewSet(ModelViewSet):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
     parser_classes = (MultiPartParser,)
 
 

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from rest_framework import serializers, status
 from rest_framework.generics import get_object_or_404
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -7,7 +8,43 @@ from apps.tools.utils.mailing import send_verification_token
 from config.utils.api_exceptions import APIValidation
 
 
-class JWTObtainPairSerializer(TokenObtainPairSerializer):
+class JWTObtainPairAccountSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        try:
+            user = get_object_or_404(User, email=attrs.get('email'))
+            if user.groups.first().name == "USER":
+                return super().validate(attrs)
+            raise APIValidation("No active account found with the given credentials",
+                                status_code=status.HTTP_401_UNAUTHORIZED)
+        except Exception as exc:
+            if exc.status_code == 401:
+                raise APIValidation(exc.args[0], status_code=status.HTTP_401_UNAUTHORIZED)
+            raise APIValidation(f"Error occurred: {exc.args}", status_code=status.HTTP_400_BAD_REQUEST)
+
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        token['username'] = user.username
+        token['first_name'] = user.first_name
+        token['last_name'] = user.last_name
+
+        return token
+
+
+class JWTObtainPairManagementSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        try:
+            user = get_object_or_404(User, email=attrs.get('email'))
+            if user.groups.first().name == "ADMIN":
+                return super().validate(attrs)
+            raise APIValidation("No active account found with the given credentials",
+                                status_code=status.HTTP_401_UNAUTHORIZED)
+        except Exception as exc:
+            if exc.status_code == 401:
+                raise APIValidation(exc.args[0], status_code=status.HTTP_401_UNAUTHORIZED)
+            raise APIValidation(f"Error occurred: {exc.args}", status_code=status.HTTP_400_BAD_REQUEST)
+
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
@@ -59,9 +96,11 @@ class SignUpAuthSerializer(serializers.Serializer):
             user = User.objects.get(verifycode__code=code)
             VerifyCode.objects.get(code=code).delete()
             user.username = username
-            # user.is_active = True
+            user.is_active = True
             user.set_password(password)
+            user.groups.add(Group.objects.get(name='USER'))
             user.save()
+            User.objects.filter(email=email, is_active=False).delete()
             return user
         except Exception as exc:
             raise APIValidation(f"Error occurred: {exc.args}")

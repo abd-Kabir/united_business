@@ -7,12 +7,18 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.authentication.models import User, VerifyCode
-from apps.authentication.serializers import JWTObtainPairSerializer, SignUpSerializer, SignUpAuthSerializer
+from apps.authentication.serializers import JWTObtainPairAccountSerializer, SignUpSerializer, SignUpAuthSerializer, \
+    JWTObtainPairManagementSerializer
 from config.utils.api_exceptions import APIValidation
 
 
-class JWTObtainPairView(TokenObtainPairView):
-    serializer_class = JWTObtainPairSerializer
+class JWTObtainPairAccountView(TokenObtainPairView):
+    serializer_class = JWTObtainPairAccountSerializer
+    permission_classes = [AllowAny, ]
+
+
+class JWTObtainPairManagementView(TokenObtainPairView):
+    serializer_class = JWTObtainPairManagementSerializer
     permission_classes = [AllowAny, ]
 
 
@@ -44,11 +50,8 @@ class SignUpVerifyCodeAPIView(APIView):
             user = verify_obj.user
             if user == email_user:
                 verify_obj.is_verified = True
-                user.is_active = True
                 user.save()
                 verify_obj.save()
-
-                User.objects.filter(email=email, is_active=False).delete()
                 return Response({
                     'detail': 'Successfully verified',
                     'status': status.HTTP_200_OK
