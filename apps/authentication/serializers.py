@@ -100,6 +100,7 @@ class SignUpAuthSerializer(serializers.Serializer):
             user.set_password(password)
             user.groups.add(Group.objects.get(name='USER'))
             user.save()
+            VerifyCode.objects.filter(user__email=email, user__is_active=False).delete()
             User.objects.filter(email=email, is_active=False).delete()
             return user
         except Exception as exc:
