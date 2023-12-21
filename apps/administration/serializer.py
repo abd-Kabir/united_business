@@ -8,6 +8,7 @@ class AboutUsSerializer(serializers.ModelSerializer):
     class Meta:
         model = AboutUs
         fields = [
+            'id',
             'title',
             'description',
             'title_secondary',
@@ -22,6 +23,7 @@ class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
         fields = [
+            'id',
             'title',
             'description',
             'title_secondary',
@@ -35,20 +37,26 @@ class ServiceSerializer(serializers.ModelSerializer):
 class DirectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Direction
-        fields = ['title',
-                  'description',
-                  'title_secondary',
-                  'description_secondary',
-                  'link',
-                  'photo', ]
+        fields = [
+            'id',
+            'title',
+            'description',
+            'title_secondary',
+            'description_secondary',
+            'link',
+            'photo',
+        ]
 
 
 # Partner
 class PartnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Partner
-        fields = ['title',
-                  'description',
-                  'link',
-                  'logo',
-                  'photo', ]
+        fields = [
+            'id',
+            'title',
+            'description',
+            'link',
+            'logo',
+            'photo',
+        ]
