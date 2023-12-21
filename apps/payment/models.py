@@ -43,7 +43,7 @@ class Transaction(BaseModel):
         (CANCELED, 'canceled')
     )
     status = models.CharField(choices=STATUS, default='processing', max_length=55)
-    request_id = models.IntegerField(null=True, blank=True)
+    payment_id = models.IntegerField(null=True, blank=True)
     order_key = models.CharField(max_length=50, unique=True, editable=False)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     perform_datetime = models.CharField(null=True, max_length=255)
@@ -53,8 +53,8 @@ class Transaction(BaseModel):
         return f"{self.order_key}"
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        if not self.request_id:
-            self.request_id = randint(100_000, 999_999)
+        if not self.payment_id:
+            self.payment_id = randint(100_000, 999_999)
         # if not self.order_key:
         #     self.order_key = f"{uuid.uuid4().hex}-{int(time.time())}"
         super().save(force_insert, force_update, using, update_fields)
