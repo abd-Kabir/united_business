@@ -55,8 +55,8 @@ class Transaction(BaseModel):
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if not self.request_id:
             self.request_id = randint(100_000, 999_999)
-        if not self.order_key:
-            self.order_key = f"{uuid.uuid4().hex}-{int(time.time())}"
+        # if not self.order_key:
+        #     self.order_key = f"{uuid.uuid4().hex}-{int(time.time())}"
         super().save(force_insert, force_update, using, update_fields)
 
     class Meta:
