@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'apps.authentication',
     'apps.trade',
     'apps.administration',
+    'apps.payment',
 ]
 
 MIDDLEWARE = [

@@ -3,6 +3,7 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.payment.models import Subscription
 from config.models import BaseModel
 from config.utils.api_exceptions import APIValidation
 
@@ -38,6 +39,7 @@ class User(AbstractUser):
     email = models.EmailField(_("email address"), blank=True)
     middle_name = models.CharField(_("middle name"), max_length=150, blank=True, null=True)
     phone_number = models.CharField(_("phone number"), max_length=19, blank=True, null=True)
+    subscription = models.ForeignKey(Subscription, on_delete=models.SET_NULL, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         user = User.objects.filter(email=self.email, is_active=True)

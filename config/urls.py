@@ -20,10 +20,11 @@ schema_view = get_schema_view(
     permission_classes=[permissions.AllowAny],
 )
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('control-panel/', admin.site.urls),
     path('auth/', include('apps.authentication.urls')),
     path('trade/', include('apps.trade.urls')),
     path('content/', include('apps.administration.urls')),
+    path('payment/', include('apps.payment.urls')),
 
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
