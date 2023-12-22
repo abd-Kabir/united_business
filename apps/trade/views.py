@@ -10,15 +10,6 @@ from config.pagination import APIPagination
 
 
 class TradeDataAPIView(ListAPIView):
-    # def get(self, request):
-    #     mode: str = request.query_params.get('mode')
-    #     if mode.lower() == 'export':
-    #         trade_queryset = Trade.objects.filter(mode="ЭК")
-    #     else:
-    #         trade_queryset = Trade.objects.filter(mode="ИМ")
-    #     page = self.paginate_queryset(trade_queryset, request)
-    #     return self.get_paginated_response(page)
-    # queryset = Trade.objects.all()
     serializer_class = TradeSerializer
     pagination_class = APIPagination
 
