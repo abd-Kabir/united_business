@@ -1,4 +1,7 @@
 from django.db.models import Sum
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -25,6 +28,8 @@ class TradeDataAPIView(ListAPIView):
 class TradeRepublicDataAPIView(APIView):
     permission_classes = [AllowAny, ]
 
+    @method_decorator(cache_page(60 * 60 * 24))
+    @method_decorator(vary_on_cookie)
     def get(self, request):
         import_data_price_2023 = Trade.objects.filter(mode='ИМ').filter(date__year=2023).aggregate(
             price_sum=Sum('price'))['price_sum']
