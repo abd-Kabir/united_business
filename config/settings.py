@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     # apps
     'apps.authentication',
+    'apps.tools',
     'apps.trade',
     'apps.administration',
     'apps.payment',
