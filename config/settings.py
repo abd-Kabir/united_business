@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # libs
     'corsheaders',
     'rest_framework',
+    'rest_framework_gis',
     'rest_framework_simplejwt',
     'drf_yasg',
 
@@ -95,8 +96,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
-        # 'ENGINE': 'django.contrib.gis.db.backends.spatialite',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+    # 'ENGINE': 'django.contrib.gis.db.backends.spatialite',
+    # 'NAME': BASE_DIR / 'db.sqlite3',
     # }
     'default': {
         # 'ENGINE': 'django.db.backends.postgresql',
@@ -175,8 +176,8 @@ MEDIA_ROOT = join_path(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # GDAL configs
-GDAL_LIBRARY_PATH = r"E:\uKabir\IT\projects\ub\env\Lib\site-packages\osgeo\gdal304.dll"
-GEOS_LIBRARY_PATH = r"E:\uKabir\IT\projects\ub\env\Lib\site-packages\osgeo\geos_c.dll"
+GDAL_LIBRARY_PATH = getenv('GDAL_LIBRARY_PATH')
+GEOS_LIBRARY_PATH = getenv('GEOS_LIBRARY_PATH')
 
 # EMAIL
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

@@ -11,5 +11,9 @@ class Country(BaseModel):
     def __str__(self):
         return self.name
 
+    @property
+    def test(self):
+        return 123
+
     class Meta:
         db_table = 'Country'

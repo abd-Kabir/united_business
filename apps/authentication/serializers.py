@@ -17,8 +17,9 @@ class JWTObtainPairAccountSerializer(TokenObtainPairSerializer):
             raise APIValidation("No active account found with the given credentials",
                                 status_code=status.HTTP_401_UNAUTHORIZED)
         except Exception as exc:
-            if exc.status_code == 401:
-                raise APIValidation(exc.args[0], status_code=status.HTTP_401_UNAUTHORIZED)
+            if hasattr(exc, 'status_code'):
+                if exc.status_code == 401:
+                    raise APIValidation(exc.args[0], status_code=status.HTTP_401_UNAUTHORIZED)
             raise APIValidation(f"Error occurred: {exc.args}", status_code=status.HTTP_400_BAD_REQUEST)
 
     @classmethod

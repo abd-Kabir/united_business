@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework.generics import ListAPIView
 
-# Create your views here.
+from apps.mapping.models import Country
+from apps.mapping.serializer import LocationSerializer
+
+
+class CountryListAPIView(ListAPIView):
+    queryset = Country.objects.all()
+    serializer_class = LocationSerializer
