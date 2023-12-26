@@ -13,48 +13,42 @@ from config.pagination import APIPagination
 
 
 class TradeDataAPIView(ListAPIView):
+    queryset = Trade.objects.only('TNVED', 'product').distinct('TNVED').filter(product__isnull=False)
     serializer_class = TradeSerializer
-    pagination_class = APIPagination
-
-    def get_queryset(self):
-        mode: str = self.request.query_params.get('mode')
-        if mode.lower() == 'export':
-            trade_queryset = Trade.objects.filter(mode="ЭК")
-        else:
-            trade_queryset = Trade.objects.filter(mode="ИМ")
-        return trade_queryset
 
 
 class TradeRepublicDataAPIView(APIView):
     permission_classes = [AllowAny, ]
 
-    @method_decorator(cache_page(60 * 60 * 24))
-    @method_decorator(vary_on_cookie)
+    # @method_decorator(cache_page(60 * 60 * 24))
+    # @method_decorator(vary_on_cookie)
     def get(self, request):
-        import_data_price_2023 = Trade.objects.filter(mode='ИМ').filter(date__year=2023).aggregate(
+        trade_import = Trade.objects.filter(mode='ИМ').only('weight', 'mode', 'product', 'date', 'price')
+        trade_export = Trade.objects.filter(mode='ЭК').only('weight', 'mode', 'product', 'date', 'price')
+        import_data_price_2023 = trade_import.filter(date__year=2023, product__isnull=False).aggregate(
             price_sum=Sum('price'))['price_sum']
-        import_data_price_2022 = Trade.objects.filter(mode='ИМ').filter(date__year=2022).aggregate(
+        import_data_price_2022 = trade_import.filter(date__year=2022, product__isnull=False).aggregate(
             price_sum=Sum('price'))['price_sum']
-        import_data_price_2021 = Trade.objects.filter(mode='ИМ').filter(date__year=2021).aggregate(
+        import_data_price_2021 = trade_import.filter(date__year=2021, product__isnull=False).aggregate(
             price_sum=Sum('price'))['price_sum']
-        import_data_weight_2023 = Trade.objects.filter(mode='ИМ').filter(date__year=2023).aggregate(
+        import_data_weight_2023 = trade_import.filter(date__year=2023, product__isnull=False).aggregate(
             weight_sum=Sum('weight'))['weight_sum']
-        import_data_weight_2022 = Trade.objects.filter(mode='ИМ').filter(date__year=2022).aggregate(
+        import_data_weight_2022 = trade_import.filter(date__year=2022, product__isnull=False).aggregate(
             weight_sum=Sum('weight'))['weight_sum']
-        import_data_weight_2021 = Trade.objects.filter(mode='ИМ').filter(date__year=2021).aggregate(
+        import_data_weight_2021 = trade_import.filter(date__year=2021, product__isnull=False).aggregate(
             weight_sum=Sum('weight'))['weight_sum']
 
-        export_data_price_2023 = Trade.objects.filter(mode='ЭК').filter(date__year=2023).aggregate(
+        export_data_price_2023 = trade_export.filter(date__year=2023, product__isnull=False).aggregate(
             price_sum=Sum('price'))['price_sum']
-        export_data_price_2022 = Trade.objects.filter(mode='ЭК').filter(date__year=2022).aggregate(
+        export_data_price_2022 = trade_export.filter(date__year=2022, product__isnull=False).aggregate(
             price_sum=Sum('price'))['price_sum']
-        export_data_price_2021 = Trade.objects.filter(mode='ЭК').filter(date__year=2021).aggregate(
+        export_data_price_2021 = trade_export.filter(date__year=2021, product__isnull=False).aggregate(
             price_sum=Sum('price'))['price_sum']
-        export_data_weight_2023 = Trade.objects.filter(mode='ЭК').filter(date__year=2023).aggregate(
+        export_data_weight_2023 = trade_export.filter(date__year=2023, product__isnull=False).aggregate(
             weight_sum=Sum('weight'))['weight_sum']
-        export_data_weight_2022 = Trade.objects.filter(mode='ЭК').filter(date__year=2022).aggregate(
+        export_data_weight_2022 = trade_export.filter(date__year=2022, product__isnull=False).aggregate(
             weight_sum=Sum('weight'))['weight_sum']
-        export_data_weight_2021 = Trade.objects.filter(mode='ЭК').filter(date__year=2021).aggregate(
+        export_data_weight_2021 = trade_export.filter(date__year=2021, product__isnull=False).aggregate(
             weight_sum=Sum('weight'))['weight_sum']
 
         return Response({

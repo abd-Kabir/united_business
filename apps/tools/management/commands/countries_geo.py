@@ -12,13 +12,13 @@ class Command(BaseCommand):
     help = 'Import countries from GeoJSON file'
 
     def handle(self, *args, **options):
-        path = join_path(settings.BASE_DIR, 'archive', 'countries.geo.json')
+        path = join_path(settings.BASE_DIR, 'archive', 'countries.geojson')
         with open(path, 'r') as file:
             data = json.load(file)
             countries = []
             for feature in data['features']:
-                name = feature['properties']['name']
-                code = feature['id']
+                name = feature['properties']['ADMIN']
+                code = feature['properties']['ISO_A3']
                 geometry = GEOSGeometry(json.dumps(feature['geometry']))
 
                 country = Country(name=name, geometry=geometry, code=code)
@@ -27,3 +27,23 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS(f'Successfully imported {name}'))
             Country.objects.bulk_create(countries)
             self.stdout.write(self.style.SUCCESS(f'Successfully DONE!'))
+#
+# class Command(BaseCommand):
+#     help = 'Import countries from GeoJSON file'
+#
+#     def handle(self, *args, **options):
+#         path = join_path(settings.BASE_DIR, 'archive', 'countries.geojson')
+#         with open(path, 'r') as file:
+#             data = json.load(file)
+#             countries = []
+#             for feature in data['features']:
+#                 name = feature['properties']['name']
+#                 code = feature['id']
+#                 geometry = GEOSGeometry(json.dumps(feature['geometry']))
+#
+#                 country = Country(name=name, geometry=geometry, code=code)
+#                 countries.append(country)
+#
+#                 self.stdout.write(self.style.SUCCESS(f'Successfully imported {name}'))
+#             Country.objects.bulk_create(countries)
+#             self.stdout.write(self.style.SUCCESS(f'Successfully DONE!'))

@@ -6,4 +6,5 @@ from apps.trade.models import Trade
 class TradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trade
-        fields = '__all__'
+        fields = ['TNVED',
+                  'product', ]

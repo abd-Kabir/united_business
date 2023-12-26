@@ -1,5 +1,6 @@
 from django.db import models
 
+from apps.mapping.models import Country
 from config.models import BaseModel
 
 
@@ -18,8 +19,12 @@ class Trade(BaseModel):
     price = models.FloatField(null=True, blank=True)
     date = models.DateField(null=True, blank=True)
 
+    def country_rel_insert(self):
+        self.country_rel_id = self.country
+        self.save()
+
     class Meta:
         db_table = 'Trade'
         indexes = [
-            models.Index(fields=['mode',]),
+            models.Index(fields=['TNVED', 'date', 'country', 'mode', 'product']),
         ]
