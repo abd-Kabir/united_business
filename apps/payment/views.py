@@ -20,7 +20,6 @@ class PaymeEndpointURL(APIView):
         serializer = PaymeMerchantAPISerializer(data=request.data)
         method = serializer.data['method']
         params = serializer.data['params']
-
         response = paycom_method(method, params)
 
         return Response(response)

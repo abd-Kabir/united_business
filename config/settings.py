@@ -33,7 +33,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 # Application definition
 INSTALLED_APPS = [
-    # 'django.contrib.gis',
+    'django.contrib.gis',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'clearcache',
     'corsheaders',
     'rest_framework',
-    # 'rest_framework_gis',
+    'rest_framework_gis',
     'rest_framework_simplejwt',
     'drf_yasg',
 
@@ -95,23 +95,23 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        # 'ENGINE': 'django.contrib.gis.db.backends.spatialite',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
     # 'default': {
-    #     # 'ENGINE': 'django.db.backends.postgresql',
-    #     'ENGINE': 'django.contrib.gis.db.backends.postgis',
-    #     'NAME': getenv('POSTGRES_NAME'),
-    #     'USER': getenv('POSTGRES_USER'),
-    #     'PASSWORD': getenv('POSTGRES_PASSWORD'),
-    #     'HOST': getenv('POSTGRES_HOST'),
-    #     'PORT': '',
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    # 'ENGINE': 'django.contrib.gis.db.backends.spatialite',
+    # 'NAME': BASE_DIR / 'db.sqlite3',
     # }
+    'default': {
+        # 'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': getenv('POSTGRES_NAME'),
+        'USER': getenv('POSTGRES_USER'),
+        'PASSWORD': getenv('POSTGRES_PASSWORD'),
+        'HOST': getenv('POSTGRES_HOST'),
+        'PORT': '',
+    }
 }
 
-# SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
+SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -177,8 +177,8 @@ MEDIA_ROOT = join_path(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # GDAL configs
-# GDAL_LIBRARY_PATH = getenv('GDAL_LIBRARY_PATH')
-# GEOS_LIBRARY_PATH = getenv('GEOS_LIBRARY_PATH')
+GDAL_LIBRARY_PATH = getenv('GDAL_LIBRARY_PATH')
+GEOS_LIBRARY_PATH = getenv('GEOS_LIBRARY_PATH')
 
 # EMAIL
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
