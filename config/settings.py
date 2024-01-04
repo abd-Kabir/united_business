@@ -27,6 +27,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # CSRF TRUSTS
 CSRF_TRUSTED_ORIGINS = [
     'https://unitedbusiness.abd-kabir.repl.co',
+    'https://cf4d0867-785b-40a8-b31e-6b0e56b378d6-00-1puy2vuznrmmd.sisko.replit.dev',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
 ]
