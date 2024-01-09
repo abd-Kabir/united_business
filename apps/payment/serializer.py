@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.payment.methods import METHODS
+from apps.payment.utils.methods import METHODS
 
 
 class PaymeMerchantAPISerializer(serializers.Serializer):
