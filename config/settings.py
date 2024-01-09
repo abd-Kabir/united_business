@@ -19,7 +19,8 @@ SECRET_KEY = getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(getenv('DEBUG')))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['unitedbi.uz', 'api.unitedbi.uz',
+                 'localhost', '127.0.0.1']
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = True
@@ -28,6 +29,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = [
     'https://unitedbusiness.abd-kabir.repl.co',
     'https://cf4d0867-785b-40a8-b31e-6b0e56b378d6-00-1puy2vuznrmmd.sisko.replit.dev',
+    'http://unitedbi.uz',
+    'http://api.unitedbi.uz',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
 ]
@@ -96,13 +99,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    # 'ENGINE': 'django.contrib.gis.db.backends.spatialite',
-    # 'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql',
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': getenv('POSTGRES_NAME'),
         'USER': getenv('POSTGRES_USER'),
