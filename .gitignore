@@ -11,3 +11,7 @@
 /logs.log
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/united_business.iml
+/.idea/deployment.xml
+/.idea/sshConfigs.xml
+/.idea/webServers.xml
+/req.txt
