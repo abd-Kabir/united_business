@@ -175,7 +175,7 @@ MEDIA_ROOT = join_path(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # GDAL configs
-# GDAL_LIBRARY_PATH = getenv('GDAL_LIBRARY_PATH')
+GDAL_LIBRARY_PATH = getenv('GDAL_LIBRARY_PATH')
 # GEOS_LIBRARY_PATH = getenv('GEOS_LIBRARY_PATH')
 
 # EMAIL
