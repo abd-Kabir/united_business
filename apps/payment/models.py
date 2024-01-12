@@ -1,14 +1,16 @@
+import uuid
 from random import randint
 
 from django.db import models
 
+from apps.authentication.models import User
 from config.models import BaseModel
 
 
 class Subscription(BaseModel):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    price = models.FloatField()
+    amount = models.FloatField()
     USD = 'USD'
     UZS = 'UZS'
     UNIT_CHOICES = [
@@ -42,19 +44,23 @@ class Transaction(BaseModel):
     )
     status = models.CharField(choices=STATUS, default='processing', max_length=55)
     payment_id = models.IntegerField(null=True, blank=True)
-    order_key = models.CharField(max_length=50, unique=True, editable=False)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    perform_datetime = models.CharField(null=True, max_length=255)
-    cancel_datetime = models.CharField(null=True, max_length=255)
+    transaction_key = models.CharField(max_length=255, null=True, blank=True)
+    state = models.IntegerField(blank=True, null=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    create_datetime = models.DateTimeField(null=True, blank=True)
+    perform_datetime = models.DateTimeField(null=True, blank=True)
+    cancel_datetime = models.DateTimeField(null=True, blank=True)
+    reason = models.IntegerField(blank=True, null=True)
+
+    subscription = models.ForeignKey(Subscription, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.order_key}"
+        return f"{self.payment_id}"
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if not self.payment_id:
-            self.payment_id = randint(100_000, 999_999)
-        # if not self.order_key:
-        #     self.order_key = f"{uuid.uuid4().hex}-{int(time.time())}"
+            self.payment_id = uuid.uuid4().hex
         super().save(force_insert, force_update, using, update_fields)
 
     class Meta:

@@ -2,6 +2,7 @@ import logging
 from datetime import datetime
 from random import randint
 
+from .errors import PROCESSING, NOT_FOUND, BLOCKED, AMOUNT
 from .methods import (CHECK_PERFORM_TRANSACTION, CREATE_TRANSACTION,
                       PERFORM_TRANSACTION, CANCEL_TRANSACTION,
                       CHECK_TRANSACTION)
@@ -25,8 +26,8 @@ def create_transaction(params) -> dict:
         instance = Transaction.objects.filter(transaction_key=transaction_key).first()
     else:
         account_id = params.get('account').get('user')
-        package_id = params.get('account').get('Tarif')
-        if Transaction.objects.filter(package_id=package_id,
+        subscription_id = params.get('account').get('Tarif')
+        if Transaction.objects.filter(subscription_id=subscription_id,
                                       user_id=account_id,
                                       status='processing').exists():
             return {
@@ -44,7 +45,7 @@ def create_transaction(params) -> dict:
                                               amount=amount,
                                               state=1,
                                               status='processing',
-                                              package_id=package_id,
+                                              subscription_id=subscription_id,
                                               user_id=account_id)
     return {
         "result": {
