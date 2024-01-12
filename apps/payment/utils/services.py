@@ -2,7 +2,7 @@ import logging
 from datetime import datetime
 from random import randint
 
-from .errors import PROCESSING, NOT_FOUND, BLOCKED, AMOUNT
+from .errors import PROCESSING, NOT_FOUND, BLOCKED, AMOUNT, payment_errors
 from .methods import (CHECK_PERFORM_TRANSACTION, CREATE_TRANSACTION,
                       PERFORM_TRANSACTION, CANCEL_TRANSACTION,
                       CHECK_TRANSACTION)
@@ -12,6 +12,14 @@ logger = logging.getLogger()
 
 
 def check_perform_transaction(params) -> dict:
+    subscription_id = params.get('account').get('Tarif')
+    user_id = params.get('account').get('user')
+    if Transaction.objects.filter(subscription_id=subscription_id,
+                                  user_id=user_id,
+                                  status='processing').exists():
+        return {
+            "error": payment_errors[PROCESSING]
+        }
     return {
         "result": {
             "allow": True
@@ -31,14 +39,7 @@ def create_transaction(params) -> dict:
                                       user_id=account_id,
                                       status='processing').exists():
             return {
-                "error": {
-                    "code": -31099,
-                    "message": {
-                        "uz": "Buyurtma amalga oshirilmoqda",
-                        "ru": "Заказ в процессе обработки",
-                        "en": "Order payment in process"
-                    }
-                }
+                "error": payment_errors[PROCESSING]
             }
         instance = Transaction.objects.create(create_datetime=datetime.now(),
                                               transaction_key=transaction_key,
@@ -61,14 +62,7 @@ def perform_transaction(params) -> dict:
     instance = Transaction.objects.filter(transaction_key=transaction_key)
     if not instance:
         return {
-            "error": {
-                "code": -31003,
-                "message": {
-                    "uz": 'Buyurtma topilmadi',
-                    "ru": 'Транзакция не найдена',
-                    "en": 'Transaction not found'
-                }
-            }
+            "error": payment_errors[NOT_FOUND]
         }
     instance = instance.first()
     if instance.state != 2:

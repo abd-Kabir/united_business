@@ -24,7 +24,7 @@ payment_errors = {
         "code": -31008,
         "message": {
             "uz": "Hisob to'langan/bekor qilingan",
-            "ru": 'Счет уже оплачен / отменен',
+            "ru": 'Счет уже оплачен/отменен',
             "en": 'Invoice already paid/cancelled'
         }
     },
