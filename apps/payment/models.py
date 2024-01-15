@@ -1,5 +1,4 @@
 import uuid
-from random import randint
 
 from django.db import models
 
@@ -26,6 +25,8 @@ class Subscription(BaseModel):
 class Access(BaseModel):
     name = models.CharField(max_length=255)
     subscription = models.ManyToManyField(Subscription, related_name='accesses')
+    access_til = models.DateTimeField()
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'Access'
