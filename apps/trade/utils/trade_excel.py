@@ -75,3 +75,4 @@ def import_data():
         Trade.objects.bulk_create(trades)
     print('FINISHED!')
     return "DONE"
+

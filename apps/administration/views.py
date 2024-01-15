@@ -1,8 +1,9 @@
 from rest_framework.parsers import MultiPartParser
 from rest_framework.viewsets import ModelViewSet
 
-from apps.administration.models import AboutUs, Direction, Partner, Service
-from apps.administration.serializer import AboutUsSerializer, DirectionSerializer, PartnerSerializer, ServiceSerializer
+from apps.administration.models import AboutUs, Direction, Partner, Service, Banner
+from apps.administration.serializer import AboutUsSerializer, DirectionSerializer, PartnerSerializer, ServiceSerializer, \
+    BannerSerializer
 # from config.pagination import APIPagination
 from config.utils.permissions import LandingPage
 
@@ -34,6 +35,14 @@ class DirectionModelViewSet(ModelViewSet):
 class PartnerModelViewSet(ModelViewSet):
     queryset = Partner.objects.all()
     serializer_class = PartnerSerializer
+    parser_classes = (MultiPartParser,)
+    permission_classes = [LandingPage, ]
+#     pagination_class = APIPagination
+
+
+class BannerModelViewSet(ModelViewSet):
+    queryset = Banner.objects.all()
+    serializer_class = BannerSerializer
     parser_classes = (MultiPartParser,)
     permission_classes = [LandingPage, ]
 #     pagination_class = APIPagination

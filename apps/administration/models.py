@@ -65,3 +65,16 @@ class Partner(BaseModel):
 
     class Meta:
         db_table = 'Partner'
+
+
+class Banner(BaseModel):
+    title_uz = models.CharField(max_length=255)
+    title_ru = models.CharField(max_length=255)
+    title_en = models.CharField(max_length=255)
+    description_uz = models.TextField(null=True)
+    description_ru = models.TextField(null=True)
+    description_en = models.TextField(null=True)
+    photo = models.FileField(upload_to=hash_filename)
+
+    class Meta:
+        db_table = 'Banner'

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.administration.models import AboutUs, Direction, Partner, Service
+from apps.administration.models import AboutUs, Direction, Partner, Service, Banner
 
 
 # AboutUs
@@ -15,8 +15,8 @@ class AboutUsSerializer(serializers.ModelSerializer):
             'description_uz',
             'description_ru',
             'description_en',
-            'title_secondary',
-            'description_secondary',
+            # 'title_secondary',
+            # 'description_secondary',
             'link',
             'photo',
         ]
@@ -34,8 +34,8 @@ class ServiceSerializer(serializers.ModelSerializer):
             'description_uz',
             'description_ru',
             'description_en',
-            'title_secondary',
-            'description_secondary',
+            # 'title_secondary',
+            # 'description_secondary',
             'link',
             'photo',
         ]
@@ -53,8 +53,8 @@ class DirectionSerializer(serializers.ModelSerializer):
             'description_uz',
             'description_ru',
             'description_en',
-            'title_secondary',
-            'description_secondary',
+            # 'title_secondary',
+            # 'description_secondary',
             'link',
             'photo',
         ]
@@ -74,5 +74,21 @@ class PartnerSerializer(serializers.ModelSerializer):
             'description_en',
             'link',
             'logo',
+            'photo',
+        ]
+
+
+# Banner
+class BannerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Banner
+        fields = [
+            'id',
+            'title_uz',
+            'title_ru',
+            'title_en',
+            'description_uz',
+            'description_ru',
+            'description_en',
             'photo',
         ]
