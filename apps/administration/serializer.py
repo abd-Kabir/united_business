@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.administration.models import AboutUs, Direction, Partner, Service, Banner
+from apps.administration.models import AboutUs, Direction, Partner, Service, Banner, Guide
 
 
 # AboutUs
@@ -91,4 +91,20 @@ class BannerSerializer(serializers.ModelSerializer):
             'description_ru',
             'description_en',
             'photo',
+        ]
+
+
+# Guide
+class GuideSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Guide
+        fields = [
+            'id',
+            'title_uz',
+            'title_ru',
+            'title_en',
+            'description_uz',
+            'description_ru',
+            'description_en',
+            'link',
         ]

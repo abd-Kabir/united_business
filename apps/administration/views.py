@@ -1,10 +1,9 @@
 from rest_framework.parsers import MultiPartParser
 from rest_framework.viewsets import ModelViewSet
 
-from apps.administration.models import AboutUs, Direction, Partner, Service, Banner
+from apps.administration.models import AboutUs, Direction, Partner, Service, Banner, Guide
 from apps.administration.serializer import AboutUsSerializer, DirectionSerializer, PartnerSerializer, ServiceSerializer, \
-    BannerSerializer
-# from config.pagination import APIPagination
+    BannerSerializer, GuideSerializer
 from config.utils.permissions import LandingPage
 
 
@@ -13,7 +12,7 @@ class AboutUsModelViewSet(ModelViewSet):
     serializer_class = AboutUsSerializer
     parser_classes = (MultiPartParser,)
     permission_classes = [LandingPage, ]
-#     pagination_class = APIPagination
+    # pagination_class = APIPagination
 
 
 class ServiceModelViewSet(ModelViewSet):
@@ -21,7 +20,7 @@ class ServiceModelViewSet(ModelViewSet):
     serializer_class = ServiceSerializer
     parser_classes = (MultiPartParser,)
     permission_classes = [LandingPage, ]
-#     pagination_class = APIPagination
+    # pagination_class = APIPagination
 
 
 class DirectionModelViewSet(ModelViewSet):
@@ -29,7 +28,7 @@ class DirectionModelViewSet(ModelViewSet):
     serializer_class = DirectionSerializer
     parser_classes = (MultiPartParser,)
     permission_classes = [LandingPage, ]
-#     pagination_class = APIPagination
+    # pagination_class = APIPagination
 
 
 class PartnerModelViewSet(ModelViewSet):
@@ -37,7 +36,7 @@ class PartnerModelViewSet(ModelViewSet):
     serializer_class = PartnerSerializer
     parser_classes = (MultiPartParser,)
     permission_classes = [LandingPage, ]
-#     pagination_class = APIPagination
+    # pagination_class = APIPagination
 
 
 class BannerModelViewSet(ModelViewSet):
@@ -45,4 +44,11 @@ class BannerModelViewSet(ModelViewSet):
     serializer_class = BannerSerializer
     parser_classes = (MultiPartParser,)
     permission_classes = [LandingPage, ]
-#     pagination_class = APIPagination
+    # pagination_class = APIPagination
+
+
+class GuideModelViewSet(ModelViewSet):
+    queryset = Guide.objects.all()
+    serializer_class = GuideSerializer
+    permission_classes = [LandingPage, ]
+    # pagination_class = APIPagination

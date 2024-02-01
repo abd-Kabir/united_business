@@ -78,3 +78,16 @@ class Banner(BaseModel):
 
     class Meta:
         db_table = 'Banner'
+
+
+class Guide(BaseModel):
+    title_uz = models.CharField(max_length=255)
+    title_ru = models.CharField(max_length=255)
+    title_en = models.CharField(max_length=255)
+    description_uz = models.TextField(null=True)
+    description_ru = models.TextField(null=True)
+    description_en = models.TextField(null=True)
+    link = models.TextField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'Guide'
