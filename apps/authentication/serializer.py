@@ -106,3 +106,33 @@ class SignUpAuthSerializer(serializers.Serializer):
             return user
         except Exception as exc:
             raise APIValidation(f"Error occurred: {exc.args}")
+
+
+class UserPersonalDataSerializer(serializers.ModelSerializer):
+    def update(self, instance, validated_data):
+        user_type = validated_data.get('user_type')
+        if user_type == 'PHYSICAL':
+            validated_data['company_name'] = instance.company_name
+            validated_data['founded'] = instance.founded
+            validated_data['company_description'] = instance.company_description
+            validated_data['licence_file'] = instance.licence_file
+            validated_data['certificate_file'] = instance.certificate_file
+        return super().update(instance, validated_data)
+
+    class Meta:
+        model = User
+        fields = [
+            'first_name',
+            'last_name',
+            'middle_name',
+            'gender',
+            'birth_date',
+            'region',
+            'district',
+            'user_type',
+            'company_name',
+            'founded',
+            'company_description',
+            'licence_file',
+            'certificate_file',
+        ]

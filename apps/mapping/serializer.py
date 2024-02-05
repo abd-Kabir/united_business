@@ -4,7 +4,7 @@ from rest_framework.fields import SerializerMethodField
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
 from apps.trade.models import Trade
-from apps.mapping.models import Country
+from apps.mapping.models import Country, District, Region
 from apps.trade.utils.data_map import trade_max, trade_percent_max_min
 
 
@@ -14,6 +14,30 @@ class CountryClassifierSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Country
+        fields = [
+            'label',
+            'value',
+        ]
+
+
+class RegionClassifierSerializer(serializers.ModelSerializer):
+    label = serializers.CharField(source='name')
+    value = serializers.CharField(source='id')
+
+    class Meta:
+        model = Region
+        fields = [
+            'label',
+            'value',
+        ]
+
+
+class DistrictClassifierSerializer(serializers.ModelSerializer):
+    label = serializers.CharField(source='name')
+    value = serializers.CharField(source='id')
+
+    class Meta:
+        model = District
         fields = [
             'label',
             'value',

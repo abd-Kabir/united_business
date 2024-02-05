@@ -14,3 +14,19 @@ class Country(BaseModel):
 
     class Meta:
         db_table = 'Country'
+
+
+class Region(BaseModel):
+    name = models.CharField(max_length=30)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
+
+    class Meta:
+        db_table = 'Region'
+
+
+class District(BaseModel):
+    name = models.CharField(max_length=30)
+    region = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, blank=True)
+
+    class Meta:
+        db_table = 'District'
