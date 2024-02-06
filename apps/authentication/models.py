@@ -51,7 +51,7 @@ class User(AbstractUser):
     ]
     gender = models.CharField(_("gender"), max_length=6, choices=GENDER_CHOICES, default=NO_CHOICE,
                               null=True, blank=True)
-    birth_date = models.DateField(_("birth date"))
+    birth_date = models.DateField(_("birth date"), null=True, blank=True)
     region = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, blank=True, related_name='users')
     district = models.ForeignKey(District, on_delete=models.SET_NULL, null=True, blank=True, related_name='users')
 
