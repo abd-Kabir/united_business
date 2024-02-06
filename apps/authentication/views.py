@@ -24,6 +24,8 @@ class JWTObtainPairManagementView(TokenObtainPairView):
 
 
 class SignUpAPIView(APIView):
+    permission_classes = [AllowAny, ]
+
     def post(self, request):
         serializer = SignUpSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -62,6 +64,8 @@ class SignUpVerifyCodeAPIView(APIView):
 
 
 class SignUpAuthAPIView(APIView):
+    permission_classes = [AllowAny, ]
+
     def post(self, request):
         try:
             serializer = SignUpAuthSerializer(data=request.data)
