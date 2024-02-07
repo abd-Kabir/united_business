@@ -87,3 +87,10 @@ class PersonalDataAPIView(UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserPersonalDataSerializer
     parser_classes = (MultiPartParser,)
+
+
+class PersonalDataRetrieveAPIView(APIView):
+    def get(self, request):
+        user = request.user
+        serializer = UserPersonalDataSerializer(user)
+        return Response(serializer.data)

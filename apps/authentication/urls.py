@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
 from apps.authentication.views import JWTObtainPairAccountView, SignUpAPIView, SignUpVerifyCodeAPIView, \
-    SignUpAuthAPIView, JWTObtainPairManagementView, PersonalDataAPIView
+    SignUpAuthAPIView, JWTObtainPairManagementView, PersonalDataAPIView, PersonalDataRetrieveAPIView
 
 app_name = 'auth'
 urlpatterns = [
@@ -16,5 +16,6 @@ urlpatterns = [
     path('sign-in/', SignUpAuthAPIView.as_view(), name='sign_in'),
 
     # personal-cabinet
-    path('personal-data/<int:pk>/', PersonalDataAPIView.as_view(), name='personal_data'),
+    path('personal-data/<int:pk>/', PersonalDataAPIView.as_view(), name='personal_data_update'),
+    path('personal-data/', PersonalDataRetrieveAPIView.as_view(), name='personal_data_retrieve'),
 ]
