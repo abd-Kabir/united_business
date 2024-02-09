@@ -53,9 +53,6 @@ class Transaction(BaseModel):
     cancel_datetime = models.DateTimeField(null=True, blank=True)
     reason = models.IntegerField(blank=True, null=True)
 
-    subscription = models.ForeignKey(Subscription, on_delete=models.SET_NULL, null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-
     def __str__(self):
         return f"{self.payment_id}"
 
@@ -66,3 +63,11 @@ class Transaction(BaseModel):
 
     class Meta:
         db_table = 'Transaction'
+
+
+class Order(BaseModel):
+
+    subscription = models.ForeignKey(Subscription, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    class Meta:
+        db_table = 'Order'
