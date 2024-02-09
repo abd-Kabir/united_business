@@ -14,7 +14,7 @@ class PaycomMerchantAPI(APIView):
     permission_classes = [AllowAny, ]
 
     def post(self, request, *args, **kwargs):
-        # logger.debug(f"Data: {request.data}; Params: {request.query_params}")
+        logger.debug(f"Data: {request.data}; Params: {request.query_params}")
 
         serializer = PaymeMerchantAPISerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
