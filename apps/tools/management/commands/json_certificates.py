@@ -16,7 +16,9 @@ class Command(BaseCommand):
             for data in datas:
                 district_id = data.get('soato')
                 company_name = data.get('ccompany_name')
-                stir = data.get('stir').replace(' ', '')
+                stir = data.get('stir')
+                if type(stir) is str:
+                    stir = data.get('stir').replace(' ', '')
                 industrial_networks = data.get('industrial_networks')
                 product_name = data.get('product_name')
                 quality_systems = data.get('quality_systems')
